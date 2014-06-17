@@ -33,6 +33,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="eu.siacs.conversations.ADD_ACCOUNT" />
+                <action android:name="eu.siacs.conversations.ADD_CONTACT" />
+
             </intent-filter>
         </receiver>
 
