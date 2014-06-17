@@ -59,6 +59,7 @@ public class ExceptionHelper {
             }
             file.close();
             context.deleteFile("stacktrace.txt");
+			/* Sorry, not our policy
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			builder.setTitle(context.getString(R.string.crash_report_title));
 			builder.setMessage(context.getText(R.string.crash_report_message));
@@ -71,6 +72,7 @@ public class ExceptionHelper {
 						Conversation conversation = service.findOrCreateConversation(finalAccount, "bugs@siacs.eu", false);
 						Message message = new Message(conversation, stacktrace.toString(), Message.ENCRYPTION_NONE);
 						service.sendMessage(message);
+						
 				}
 			});
 			builder.setNegativeButton(context.getText(R.string.send_never),new OnClickListener() {
@@ -80,7 +82,10 @@ public class ExceptionHelper {
 					preferences.edit().putBoolean("never_send", true).commit();
 				}
 			});
-			builder.create().show();
+			builder.create().show();*/
+
+
+
 		} catch (FileNotFoundException e) {
 			return;
 		} catch (IOException e) {
