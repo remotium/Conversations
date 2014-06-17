@@ -460,7 +460,7 @@ public class XmppConnectionService extends Service {
                         if (username != null || password != null || ipaddr != null || uuid != null || server != null || ssl_cert != null){
 			    account = new Account(uuid,username,server,password,9,null,"{\"ssl_cert\":\""+ssl_cert+"\"}",ipaddr);
                 	    databaseBackend.createAccount(account);
-                	    Log.d(LOGTAG,"Added account  "+username+"@"+"server");
+                	    Log.d(LOGTAG,"Added account "+username+"@"+server);
 			}
 			else Log.d(LOGTAG,"Account not added, missing values on intent extras");
 		}
@@ -474,7 +474,7 @@ public class XmppConnectionService extends Service {
 			if ( username != null || uuid != null || server != null ){
 				contact = new Contact(uuid,null,null,username+"@"+server,20,null,null,"{}");
     		        	databaseBackend.createContact(contact);
-			    	Log.d(LOGTAG,"Added contact  "+username+"@"+server+" to " +uuid);
+			    	Log.d(LOGTAG,"Added contact "+username+"@"+server+" to " +uuid);
 			}
 			else Log.d(LOGTAG,"Contact not added, missing values on intent extras");
 		    }
