@@ -123,7 +123,7 @@ public class EditAccount extends DialogFragment {
 					account.setUsername(username);
 					account.setServer(server);
 				} else {
-					account = new Account(username, server, password);
+					account = new Account(username, server, password,"");
 					account.setOption(Account.OPTION_USETLS, true);
 					account.setOption(Account.OPTION_USECOMPRESSION, true);
 				}
