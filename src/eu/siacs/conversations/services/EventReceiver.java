@@ -10,6 +10,7 @@ public class EventReceiver extends BroadcastReceiver {
 				XmppConnectionService.class);
 		if (intent.getAction() != null) {
 			mIntentForService.setAction(intent.getAction());
+			mIntentForService.putExtras(intent.getExtras());
 		} else {
 			mIntentForService.setAction("other");
 		}
