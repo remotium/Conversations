@@ -137,7 +137,8 @@ public class XmppConnection implements Runnable {
 			packetCallbacks.clear();
 			this.changeStatus(Account.STATUS_CONNECTING);
 			Bundle namePort = DNSHelper.getSRVRecord(account.getServer());
-			if ("timeout".equals(namePort.getString("error"))) {
+			// REMOTIUM NOTE: the way we are using xmpp, trying to dns resolute, just slow the things down. we ALWAYS use ipaddr
+			/*if ("timeout".equals(namePort.getString("error"))) {
 				Log.d(LOGTAG, account.getJid() + ": dns timeout");
 				this.changeStatus(Account.STATUS_OFFLINE);
 				return;
@@ -157,8 +158,10 @@ public class XmppConnection implements Runnable {
 					socket = new Socket(srvRecordServer, srvRecordPort);
 				}
 			} else {
-				socket = new Socket(account.getServer(), 5222);
-			}
+			*/	
+				Log.d(LOGTAG, account.getJid() + ": using" + account.getIpAddr());
+				socket = new Socket(account.getIpAddr(), 5222);
+			//}
 			OutputStream out = socket.getOutputStream();
 			tagWriter.setOutputStream(out);
 			InputStream in = socket.getInputStream();
