@@ -22,6 +22,7 @@ public class Account  extends AbstractEntity{
 	
 	public static final String USERNAME = "username";
 	public static final String SERVER = "server";
+	public static final String IPADDR = "ipaddr";
 	public static final String PASSWORD = "password";
 	public static final String OPTIONS = "options";
 	public static final String ROSTERVERSION = "rosterversion";
@@ -51,9 +52,10 @@ public class Account  extends AbstractEntity{
 	protected String username;
 	protected String server;
 	protected String password;
+	protected String ipaddr;
 	protected int options = 0;
 	protected String rosterVersion;
-	protected String resource = "mobile";
+	protected String resource = "RemotiumIM";
 	protected int status = -1;
 	protected JSONObject keys = new JSONObject();
 	
@@ -71,15 +73,16 @@ public class Account  extends AbstractEntity{
 		this.uuid = "0";
 	}
 	
-	public Account(String username, String server, String password) {
-		this(java.util.UUID.randomUUID().toString(),username,server,password,0,null,"");
+	public Account(String username, String server, String password, String ipaddr) {
+		this(java.util.UUID.randomUUID().toString(),username,server,password,0,null,"",ipaddr);
 	}
-	public Account(String uuid, String username, String server,String password, int options, String rosterVersion, String keys) {
+	public Account(String uuid, String username, String server,String password,  int options, String rosterVersion, String keys, String ipaddr) {
 		this.uuid = uuid;
 		this.username = username;
 		this.server = server;
 		this.password = password;
 		this.options = options;
+		this.ipaddr = ipaddr;
 		this.rosterVersion = rosterVersion;
 		try {
 			this.keys = new JSONObject(keys);
@@ -104,6 +107,10 @@ public class Account  extends AbstractEntity{
 		return username;
 	}
 
+	public String getIpAddr() {
+                return ipaddr;
+        }
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -115,6 +122,10 @@ public class Account  extends AbstractEntity{
 	public void setServer(String server) {
 		this.server = server;
 	}
+ 
+        public void setIpAddr(String ipaddr) {
+                this.ipaddr = ipaddr;
+        }
 
 	public String getPassword() {
 		return password;
@@ -187,6 +198,7 @@ public class Account  extends AbstractEntity{
 		values.put(UUID,uuid);
 		values.put(USERNAME, username);
 		values.put(SERVER, server);
+                values.put(IPADDR, ipaddr);
 		values.put(PASSWORD, password);
 		values.put(OPTIONS,options);
 		values.put(KEYS,this.keys.toString());
@@ -198,10 +210,11 @@ public class Account  extends AbstractEntity{
 		return new Account(cursor.getString(cursor.getColumnIndex(UUID)),
 				cursor.getString(cursor.getColumnIndex(USERNAME)),
 				cursor.getString(cursor.getColumnIndex(SERVER)),
-				cursor.getString(cursor.getColumnIndex(PASSWORD)),
+                                cursor.getString(cursor.getColumnIndex(PASSWORD)),
 				cursor.getInt(cursor.getColumnIndex(OPTIONS)),
 				cursor.getString(cursor.getColumnIndex(ROSTERVERSION)),
-				cursor.getString(cursor.getColumnIndex(KEYS))
+				cursor.getString(cursor.getColumnIndex(KEYS)),
+				cursor.getString(cursor.getColumnIndex(IPADDR))
 				);
 	}
 
