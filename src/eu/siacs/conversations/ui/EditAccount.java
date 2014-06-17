@@ -34,6 +34,7 @@ public class EditAccount extends DialogFragment {
 		this.listener = listener;
 	}
 
+	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -85,6 +86,7 @@ public class EditAccount extends DialogFragment {
 		builder.setPositiveButton(getString(R.string.save), null);
 		return builder.create();
 	}
+	
 
 	@Override
 	public void onStart() {
