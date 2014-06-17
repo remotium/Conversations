@@ -71,6 +71,8 @@ public class XmppConnectionService extends Service {
 
 	protected static final String LOGTAG = "xmppService";
 	public DatabaseBackend databaseBackend;
+	protected Account account;
+	protected Contact contact;
 	private FileBackend fileBackend;
 
 	public long startDate;
@@ -443,6 +445,43 @@ public class XmppConnectionService extends Service {
 			logoutAndSave();
 			return START_NOT_STICKY;
 		}
+        	// REMOTIUM INTENT
+		else if ((intent != null ) && ("eu.siacs.conversations.ADD_ACCOUNT".equals(intent.getAction()))) {
+                            //PARSE THIS
+                        Log.d(LOGTAG, intent.getAction() + " Received ADD_ACCOUNT command");
+
+
+		        String username = intent.getStringExtra("username");
+                	String password = intent.getStringExtra("password");
+                	String ipaddr = intent.getStringExtra("ipaddr");
+                	String uuid = intent.getStringExtra("uuid");
+                	String server = intent.getStringExtra("server");
+                	String ssl_cert = intent.getStringExtra("ssl_cert");
+                        if (username != null && password != null && ipaddr != null && uuid != null && server != null && ssl_cert != null){
+			    account = new Account(uuid,username,server,password,9,null,"{\"ssl_cert\":\""+ssl_cert+"\"}",ipaddr);
+                	    databaseBackend.createAccount(account);
+                	    Log.d(LOGTAG,"Added account  "+username+"@"+"server");
+			}
+			else Log.d(LOGTAG,"Account not added, missing values on intent extras");
+		}
+
+		else if ((intent != null ) && ("eu.siacs.conversations.ADD_CONTACT".equals(intent.getAction()))) {
+                        Log.d(LOGTAG, intent.getAction() + " Received ADD_CONTACT command");
+
+			String username = intent.getStringExtra("username");
+	                String uuid = intent.getStringExtra("uuid");
+                	String server = intent.getStringExtra("server");
+			if ( username != null && uuid != null && server != null ){
+				contact = new Contact(uuid,null,null,username+"@"+server,20,null,null,"{}");
+    		        	databaseBackend.createContact(contact);
+			    	Log.d(LOGTAG,"Added contact  "+username+"@"+server+" to " +uuid);
+			}
+			else Log.d(LOGTAG,"Contact not added, missing values on intent extras");
+		    }
+
+
+
+
 		this.wakeLock.acquire();
 		ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
